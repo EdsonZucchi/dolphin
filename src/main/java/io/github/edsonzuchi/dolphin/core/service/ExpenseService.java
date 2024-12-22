@@ -11,6 +11,6 @@ import java.time.YearMonth;
 public interface ExpenseService {
 
     Expense launchExpense(ExpenseDto dto);
-    ExpenseListResponse getExpenseList(YearMonth yearMonth, int count, int page);
+    ExpenseListResponse getExpenseList(YearMonth yearMonth, int size, int page);
 
 }
