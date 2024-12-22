@@ -10,6 +10,7 @@ import io.github.edsonzuchi.dolphin.core.service.ExpenseService;
 import io.github.edsonzuchi.dolphin.infra.repository.DebtorRepository;
 import io.github.edsonzuchi.dolphin.infra.repository.ExpenseRepository;
 import io.github.edsonzuchi.dolphin.infra.repository.OriginRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,14 +20,12 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 
 @Service
+@RequiredArgsConstructor
 public class ExpenseServiceImpl implements ExpenseService {
 
-    @Autowired
-    private ExpenseRepository expenseRepository;
-    @Autowired
-    private DebtorRepository debtorRepository;
-    @Autowired
-    private OriginRepository originRepository;
+    private final ExpenseRepository expenseRepository;
+    private final DebtorRepository debtorRepository;
+    private final OriginRepository originRepository;
 
     @Override
     public Expense launchExpense(ExpenseDto dto) {

@@ -5,16 +5,17 @@ import io.github.edsonzuchi.dolphin.core.model.dto.OriginDto;
 import io.github.edsonzuchi.dolphin.core.model.entity.Origin;
 import io.github.edsonzuchi.dolphin.core.service.OriginService;
 import io.github.edsonzuchi.dolphin.infra.repository.OriginRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class OriginServiceImpl implements OriginService {
 
-    @Autowired
-    private OriginRepository originRepository;
+    private final OriginRepository originRepository;
 
     @Override
     public Origin saveOrigin(OriginDto dto) {
