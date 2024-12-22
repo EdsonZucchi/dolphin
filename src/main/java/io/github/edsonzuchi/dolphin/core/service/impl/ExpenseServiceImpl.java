@@ -11,13 +11,12 @@ import io.github.edsonzuchi.dolphin.infra.repository.DebtorRepository;
 import io.github.edsonzuchi.dolphin.infra.repository.ExpenseRepository;
 import io.github.edsonzuchi.dolphin.infra.repository.OriginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.YearMonth;
-import java.util.List;
 
 @Service
 public class ExpenseServiceImpl implements ExpenseService {
@@ -71,6 +70,17 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public ExpenseListResponse getExpenseList(YearMonth yearMonth, int size, int page) {
         Pageable pageable = PageRequest.of(page, size);
-        return null;
+        LocalDate start = yearMonth.atDay(1);
+        LocalDate end = yearMonth.atEndOfMonth();
+
+        var paginate = expenseRepository.findByDateBetween(start, end, pageable);
+
+        return new ExpenseListResponse(
+                paginate.getContent(),
+                page,
+                paginate.getNumberOfElements(),
+                (int) paginate.getTotalElements(),
+                paginate.getTotalPages()
+        );
     }
 }
